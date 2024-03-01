@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historify - Control de historial clínico</title>
+    <link rel="stylesheet" href="/globals.css" type="text/css">
+</head>
+<body>
+    <h2 class="pg--title">Doctor</h2>
+    <form class="form" action="" method="post">
+        <input type="hidden" name="id"/>
+        <p class="form--title">Ingrese los datos del doctor:</p>
+
+        <div class="input--box">
+            <label for="registration" class="form--label">Matrícula</label>
+            <input type="text" name="registration" class="form--input" id="registration">
+        </div>
+        
+        <div class="input--box">
+            <label for="gender" class="form--label">Género</label>
+        <select name="gender" class="form--input" id="gender">
+            <option value="M">Hombre</option>
+            <option value="F">Mujer</option>
+            <option value="X">Otro</option>
+        </select>
+        </div>
+        
+        <div class="input--box">
+            <label for="birth" class="form--label">Fecha de nacimiento</label>
+            <input type="date" name="birth" class="form--input" id="birth">
+        </div>
+        
+        <div class="input--box">
+            <label for="fname" class="form--label">Nombre</label>
+            <input type="text" name="fname" class="form--input" id="fname">
+        </div>
+        
+        <div class="input--box">
+            <label for="lname" class="form--label">Apellido</label>
+            <input type="text" name="lname" class="form--input" id="lname">
+        </div>
+
+        <div class="input--box">
+            <label for="specialty" class="form--label">Especialidad</label>
+            <input type="text" name="specialty" class="form--input" id="specialty">
+        </div>
+
+        <div class="input--box">
+            <label for="fname" class="form--label">Nombre de usuario</label>
+            <input type="text" name="username" class="form--input" id="username">
+        </div>
+
+        <div class="input--box">
+            <label for="fname" class="form--label">Contraseña</label>
+            <input type="text" name="passw" class="form--input" id="passw">
+        </div>
+
+        <hr/><br/>
+        <input type="submit" value="Actualizar" formaction="/physician/create" class="submit--btn" />
+    </form>
+</body>
+</html>

@@ -2,7 +2,8 @@ import { NewUser } from "../types.js";
 
 export function isNewUser(obj: any): obj is NewUser {
     return typeof obj.username == "string"
-        && typeof obj.passw == "string";
+        && typeof obj.passw == "string"
+        && (obj.utype == "1" || obj.utype == "2");
 }
 
 

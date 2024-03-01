@@ -2,18 +2,22 @@ import { Request, Response } from "express"
 import { invalidBody, unknownServerError } from "./common.js"
 import { db } from "../context.js";
 import { User } from "../types.js";
+import { NoResultError } from "kysely";
 
 export async function loginForm(req: Request, res: Response): Promise<void> {
-    let isRetrying: boolean = (req as any).id === "true";
-
     if (req.cookies.auth === "true") {
-        if (req.cookies.root === "true") {
-            res.redirect('/superuser');
-        } else {
-            res.redirect('/dashboard');
-        }
+        res.redirect('/dashboard');
         return;
     }
+
+    const wrongUsername: boolean = (req as any).id === "wrongUsername";
+    const wrongPassword: boolean = (req as any).id === "wrongPassword";
+
+    const message = wrongUsername 
+        ? "Usuario incorrecto" 
+        : wrongPassword
+            ? "Contraseña incorrecta"
+            : "";
 
     res.send(`
     <!DOCTYPE html>
@@ -24,18 +28,21 @@ export async function loginForm(req: Request, res: Response): Promise<void> {
             <title></title>
             <meta name="description" content="">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" href="../login.css" type="text/css">
+            <link rel="stylesheet" href="/login.css" type="text/css">
         </head>
         <body>
+            <div class="image">
+                <object class="image--form" data="/assets/medicine.svg" width="500" height="500"></object>
+            </div>
             <form action="/" method="post">
-                <h2>HISTORIFY</h2>
-                <div>${isRetrying ? "failed login" : ""}</div>
+                <h2>Bienvenido</h2>
+                <div>${message}</div>
                 <div class="input--container">
-                    <label for="user">USERNAME:</label>
+                    <label for="user">Usuario:</label>
                     <input type="text" id="user" name="username"/>
                 </div>
                 <div class="input--container">
-                    <label for="password">PASSWORD:</label>
+                    <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password"/>
                 </div>
                 <input class="submit--btn" type="submit" value="Enviar">
@@ -46,7 +53,7 @@ export async function loginForm(req: Request, res: Response): Promise<void> {
 }
 
 export async function logOut(_: Request, res: Response): Promise<void> {
-    res.clearCookie('root');
+    res.clearCookie('userType');
     res.clearCookie('auth');
     res.redirect('/');
 }
@@ -61,20 +68,31 @@ export async function logUser(req: Request, res: Response): Promise<void> {
             .where("username", "=", req.body.username)
             .executeTakeFirstOrThrow();
     } catch (err) {
-        console.log(err);
-        return unknownServerError(res, err);
+        if (err instanceof NoResultError) {
+            res.redirect('/wrongUsername');
+            return;
+        } else { 
+            return unknownServerError(res, err); 
+        }
     }
 
     if (req.body.password === user.passw) {
-        if (user.is_root) {
-            res.clearCookie('root');
-            res.cookie('root', 'true');
-        }
+        //reset cookie for userType
+        res.clearCookie('userType');
+        res.cookie('userType', user.utype);
+
+        //reset Auth cookie
         res.clearCookie('auth');
         res.cookie('auth', 'true');
+        
+        //reset userId Cookie
+        res.clearCookie('userId');
+        res.cookie('userId', user.id);
+
+        //redirect to the dasboard
         res.redirect('/dashboard');
     } else {
-        res.redirect('/true');
+        res.redirect('/wrongPassword');
     }
 }
 

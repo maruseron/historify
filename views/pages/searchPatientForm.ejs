@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historify - Control de historial clínico</title>
+    <link rel="stylesheet" href="../globals.css" type="text/css">
+</head>
+<script>
+    function submitFunction() {
+
+        let searchText = document.getElementById("search").value.trim();
+        let form = document.getElementById("form");
+
+        if(searchText.length > 0) {
+            form.action = "/patient/update/" + searchText;
+            form.submit();
+        } else {
+            return false;
+        }
+    }
+</script>
+<body>
+    <h2 class="pg--title">Actualizar Paciente</h2>
+    <form class="form" id="form" action="" method="get" onsubmit="return submitFunction();">
+    <div class="input--box">
+        <label class="form--label" for="search">Cédula</label>
+        <input class="form--input" type="number" id="search" required>
+    </div>    
+        <input class="submit--btn" type="submit" value="Buscar">
+    </form>
+</body>
+</html>

@@ -7,6 +7,13 @@
 
 CREATE DATABASE IF NOT EXISTS historify;
 
+CREATE TABLE IF NOT EXISTS historify.users (
+  id int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(255) NOT NULL,
+  passw varchar(255) NOT NULL,
+  utype int unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE IF NOT EXISTS historify.physicians (
   id int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fname varchar(100) NOT NULL,
@@ -15,7 +22,11 @@ CREATE TABLE IF NOT EXISTS historify.physicians (
   birth datetime NOT NULL,
   registration varchar(10) NOT NULL,
   UNIQUE KEY registration_UNIQUE (registration),
-  specialty varchar(45) NOT NULL
+  specialty varchar(45) NOT NULL,
+  
+  user_id int unsigned NOT NULL,
+  
+  FOREIGN KEY (user_id) REFERENCES historify.users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS historify.patients (
@@ -38,6 +49,7 @@ CREATE TABLE IF NOT EXISTS historify.consultations (
   diagnosis varchar(255) DEFAULT NULL,
   observations varchar(255) DEFAULT NULL,
   register_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  consultation_status varchar(255) NOT NULL,
   
   patient_id int unsigned NOT NULL,
   physician_id int unsigned NOT NULL,
@@ -46,9 +58,4 @@ CREATE TABLE IF NOT EXISTS historify.consultations (
   FOREIGN KEY (patient_id) REFERENCES historify.patients (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS historify.users (
-	id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username varchar(255) NOT NULL,
-    passw varchar(255) NOT NULL,
-    is_root boolean NOT NULL
-)
+INSERT INTO historify.users(username, passw, utype) values("admin", "admin", 0);

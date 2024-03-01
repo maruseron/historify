@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <html lang="es">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Historify - Control de historial clínico</title>
+        <link rel="stylesheet" href="../globals.css" type="text/css">
+    </head>
+
+    <body>
+        <h2 class="pg--title">Cita</h2>
+        <form class="form" action="" method="post">
+            <h3 class="form--title">Ingrese los datos de la cita</h3>
+            <div class="input--box"> 
+                <label class="form--label" name="consultation_date">Fecha</label>
+                <input class="form--input" type="date" name="consultation_date" id="consultation_date" required>
+            </div>
+            <div class="input--box">
+                <label class="form--label" for="hour">Hora</label>
+                <input class="form--input" type="time" name="hour" id="hour"  required/>
+            </div>
+            <div class="input--box">
+                <label class="form--label" for="consultation_desc">Descripción de la cita</label>
+                <input class="form--input" type="text" name="consultation_desc" id="consultation_desc" required>
+            </div>
+            <div class="input--box">
+                <label class="form--label" for="patient_id_document">Cédula del paciente</label>
+                <input class="form--input" type="text" name="patient_id_document" id="patient_id_document" required />
+            </div>
+            <div class="input--box">
+                <label class="form--label" for="physician_registration">Matrícula del doctor</label>
+                <input class="form--input" type="text" name="physician_registration" id="physician_registration" required/>
+            </div>
+            <input class="submit--btn" type="submit" value="Enviar">
+        </form>
+    </body>
+    
+    </html>

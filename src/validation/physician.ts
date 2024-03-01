@@ -7,7 +7,9 @@ export function isNewPhysician(obj: any): obj is NewPhysician {
         && typeof obj.fname == "string"
         && typeof obj.lname == "string"
         && isOneOf<string>(obj.gender, 'M', 'F', 'X')
-        && typeof obj.specialty == "string";
+        && typeof obj.specialty == "string"
+        && typeof obj.username == "string"
+        && typeof obj.passw == "string";
 }
 
 export function isPhysicianUpdate(obj: any): obj is PatientUpdate {

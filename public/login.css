@@ -1,13 +1,21 @@
+:root {
+    --main-blue: #1479ff;
+    --second-blue: #E6F1FF;
+    --text-blue: #193B68;
+    --gray-text: #a8a8a8;
+}
+
 body{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     width: 100vw;
     height: 100vh;
     margin: 0;
-    padding: 5% 20%;
+    padding: 5vh;
     box-sizing: border-box;
-    background-color: #2F80ED;
+    background-color: var(--second-blue);
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -17,15 +25,15 @@ form{
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #2F80ED;
+    background-color: var(--main-blue);
     text-align: center;
-    color: #fff;
+    color: var(--second-blue);
     margin: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 80vh;
     padding: 10%;
     box-sizing: border-box;
-    border: 0.1em solid #ccc;
+    border: 0.1em solid var(--second-blue);
     border-radius: 1em;
     max-width: 500px;
 }
@@ -64,7 +72,7 @@ input:focus{
 
 .submit--btn{
     margin-top: 15px;
-    background-color: #2F80ED;
+    background-color: var(--main-blue);
     color: #fff;
     align-items: center;
     border: 3px solid #fff;
@@ -77,10 +85,10 @@ input:focus{
 
 .submit--btn:hover{
     cursor: pointer;
-    color: #2F80ED;
+    color: var(--main-blue);
     transition: background, color 400ms;
-    background-color: #ccc;
-    border: 3px solid #2F80ED;
+    background-color: #fff;
+    border: 3px solid var(--main-blue);
 }
 
 a{
@@ -94,4 +102,13 @@ a{
 
 .title{
     font-size: 2em;
+}
+
+h2{
+    font-size: 2em;
+}
+
+.image--form{
+    width: 35vw;
+    margin: 0 4vh;
 }

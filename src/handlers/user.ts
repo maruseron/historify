@@ -63,6 +63,12 @@ export async function createUserForm(_: Request, res: Response): Promise<void> {
                 <label class="form--label" for="password">Contraseña</label>
                 <input class="form--input" type="password" name="passw" id="passw">
             </div>
+            <div class="input--box"> 
+                <label class="form--label" for="utype">Tipo</label>
+                <select name="utype" id="utype" class="form--input" required>
+                    <option value="2">Secretaria</option>
+                </select>
+            </div>
             <input class="submit--btn" type="submit" value="Enviar">
         </form>
     </body>
@@ -74,11 +80,14 @@ export async function createUser(req: Request, res: Response): Promise<void> {
     console.log(req.body);
     if (!isNewUser(req.body)) return invalidBody(res);
     try {
-        const result = await db.insertInto('users')
-            .values({ ...req.body, is_root: false })
+        await db.insertInto('users')
+            .values({ ...req.body })
             .executeTakeFirstOrThrow();
         
-        res.status(201).send("Created User " + req.body.username + " with ID " + result.insertId);
+        res.status(201).render('successTransaccion', {
+            registerType: "Usuario",
+            action: "creado"
+        });
     } catch (err) {
         return unknownServerError(res, err);
     }
